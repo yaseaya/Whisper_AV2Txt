@@ -2,3 +2,5 @@ AV/
 venv/
 
 *.txt
+*.wav
+
