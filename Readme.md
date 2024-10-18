@@ -1,46 +1,53 @@
-创建虚拟环境
-1. 打开 VSCode：
-启动 Visual Studio Code。
-2. 打开终端：
-您可以通过菜单栏选择 Terminal -> New Terminal，或者使用快捷键 Ctrl + 打开终端。
-3. **创建虚拟环境**： 在终端中，使用以下命令创建虚拟环境（假设您使用的是 Python 3）： bash
-python -m venv venv
-   这将创建一个名为 `venv` 的虚拟环境文件夹。
+# WhisperJax2Txt 使用说明
 
-4. **激活虚拟环境**：
-   - **在 Windows 上**：
-     ```bash
-     venv\Scripts\activate
-     ```
-   - **在 macOS 或 Linux 上**：
-     ```bash
-     source venv/bin/activate
-     ```
+## 简介
+`WhisperJax2Txt.py` 是一个用于将音频和视频文件转录为文本的 Python 脚本。它支持从本地音频/视频文件和 YouTube 视频 URL 提取音频并进行转录。
 
-   激活后，您会看到终端提示符前面出现 `(venv)`，表示虚拟环境已激活。
+## 环境要求
+确保您已安装以下库：
+- `whisper`
+- `torch`
+- `yt-dlp`
+- `ffmpeg`
 
-### 安装依赖项
+您可以使用以下命令安装所需的库：
 
-在虚拟环境激活后，您可以安装所需的依赖项，例如 WhisperJax 和 PyTorch：
+## 使用方法
 
+### 1. 准备输入文件
+您可以使用以下三种类型的输入：
+- **音频文件**：如 `.mp3`、`.wav` 等格式。
+- **视频文件**：如 `.mp4`、`.mkv` 等格式。
+- **YouTube URL**：以 `http` 开头的有效 YouTube 视频链接。
 
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-Looking in indexes: https://download.pytorch.org/whl/cu118
+### 2. 修改脚本中的输入
+在 `WhisperJax2Txt.py` 的 `__main__` 部分，设置 `input_file` 和 `output_file` 变量：
 
+### 3. 运行脚本
+在终端中运行以下命令：
 
+### 4. 输出结果
+转录完成后，结果将保存到指定的 `output_file` 中（如 `output.txt`）。
 
-### 配置 VSCode 使用虚拟环境
+## 示例
+- **输入音频文件**：
+  ```python
+  input_file = r"D:\My.Dev\WhisperJax2Txt\AV\huawei.mp3"
+  ```
 
-1. **选择 Python 解释器**：
-   按下 `Ctrl + Shift + P` 打开命令面板，输入并选择 `Python: Select Interpreter`。然后选择您刚刚创建的虚拟环境的 Python 解释器。
+- **输入视频文件**：
+  ```python
+  input_file = r"D:\My.Dev\WhisperJax2Txt\AV\Fly.mp4"
+  ```
 
-2. **运行代码**：
-   现在，您可以在 VSCode 中运行您的 Python 代码，确保它使用的是虚拟环境中的依赖项。
+- **输入 YouTube URL**：
+  ```python
+  input_file = r"https://www.youtube.com/watch?v=fx6yIosOGpE"
+  ```
 
-### 退出虚拟环境
+## 注意事项
+- 确保输入文件路径正确，且文件存在。
+- 对于 YouTube URL，确保网络连接正常，以便下载音频。
+- 如果使用视频文件，确保系统上已安装 `ffmpeg`，以便提取音频。
 
-完成工作后，您可以通过以下命令退出虚拟环境：
-
-
-
-这样，您就成功在 VSCode 中创建并使用了虚拟环境。
+通过以上步骤，您可以轻松使用 `WhisperJax2Txt.py` 进行音频和视频文件的转录。

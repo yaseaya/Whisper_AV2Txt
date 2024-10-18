@@ -2,6 +2,7 @@ import whisper
 import torch
 import os
 import subprocess
+from yt_Download import download_youtube_audio  # 导入下载 YouTube 音频的函数
 
 def extract_audio_from_video(video_file, audio_file):
     # 使用 ffmpeg 提取音频
@@ -30,8 +31,16 @@ def convert_audio_to_text(input_file, output_file):
     
     audio_file = None  # 初始化音频文件变量
 
+    # 检查输入是否为 YouTube URL
+    if input_file.lower().startswith('http'):
+        print("检测到 YouTube URL，正在下载音频...")
+        audio_file = download_youtube_audio(input_file, os.path.dirname(output_file))
+        if audio_file is None:
+            print("下载音频失败，程序终止。")
+            return
+        input_file_abs = audio_file  # 更新为下载的音频文件
     # 如果输入文件是视频文件，提取音频
-    if input_file.lower().endswith(('.mp4', '.mkv', '.avi', '.mov')):
+    elif input_file.lower().endswith(('.mp4', '.mkv', '.avi', '.mov')):
         audio_file = "extracted_audio.wav"  # 提取的音频文件名
         extract_audio_from_video(input_file_abs, audio_file)
         input_file_abs = audio_file  # 更新为提取的音频文件
@@ -56,6 +65,6 @@ def convert_audio_to_text(input_file, output_file):
         print(f"已删除临时音频文件: {audio_file}")
 
 if __name__ == "__main__":
-    input_file = r"D:\My.Dev\WhisperJax2Txt\AV\fly.mp4"  # 输入文件路径，可以是音频或视频文件
+    input_file = r"https://www.youtube.com/watch?v=fx6yIosOGpE"  # 输入 YouTube 视频 URL 或本地文件路径
     output_file = "output.txt"  # 输出文本文件路径
     convert_audio_to_text(input_file, output_file)
